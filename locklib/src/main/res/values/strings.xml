@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">locklib</string>
+
+    <string name="gesture_forget_gesture">忘记手势密码</string>
+    <string name="gesture_default">请输入手势密码</string>
+    <string name="gesture_error">手势密码输入错误</string>
+    <string name="gesture_correct">输入正确</string>
+
+    <!-- 创建手势 -->
+    <string name="create_gesture_default">绘制解锁图案</string>
+    <string name="create_gesture_correct">再次绘制解锁图案</string>
+    <string name="create_gesture_less_error">至少连接4个点，请重新输入</string>
+    <string name="create_gesture_confirm_error">与上一次绘制不一致，请重新绘制</string>
+    <string name="create_gesture_confirm_correct">设置成功</string>
+    <string name="create_gesture_reset">重新设置</string>
+
+    <!--验证收拾-->
+    <string name="forget_pwd">忘记手势密码</string>
+    <string name="switch_pwd">切换登录方式</string>
+    <string name="gesture_lock">手势锁</string>
+    <string name="gesture_login">手势锁登录</string>
+    <string name="open_gesture_login">请开启手势解锁功能</string>
+    <string name="open_now">现在开启</string>
+    <string name="open_latter">稍后再说</string>
+</resources>

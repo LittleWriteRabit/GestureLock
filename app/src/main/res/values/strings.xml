@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">GestureLock</string>
+
+    <!--手势操作-->
+    <string name="set_gesture_pwd">设置手势密码</string>
+    <string name="drag_draw_icon">滑动绘制解锁图案</string>
+
+    <string name="check_error_over_time">手势密码验证超过次数，请使用账号密码登录</string>
+    <string name="gesture_login_success">手势登录成功</string>
+    <string name="gesture_set_success">手势设置成功</string>
+</resources>
