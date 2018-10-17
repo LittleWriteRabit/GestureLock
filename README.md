@@ -16,7 +16,7 @@ Add it in your root build.gradle at the end of repositories:
 		}
 	}
 Step 2. Add the dependency
-
+[![](https://jitpack.io/v/LittleWriteRabit/GestureLock.svg)](https://jitpack.io/#LittleWriteRabit/GestureLock)
 	dependencies {
-	        implementation 'com.github.LittleWriteRabit:GestureLock:1.0.0'
+	        implementation 'com.github.LittleWriteRabit:GestureLock:LastVersion'
 	}
