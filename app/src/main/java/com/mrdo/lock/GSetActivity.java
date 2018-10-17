@@ -6,9 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mrdo.lock.locklib.ACache;
 import com.mrdo.lock.locklib.LockPatternUtil;
 import com.mrdo.lock.locklib.LockPatternView;
+import com.mrdo.lock.locklib.PreferencesUtility;
 import com.mrdo.lock.locklib.StatusSet;
 
 import java.util.ArrayList;
@@ -23,7 +23,6 @@ public class GSetActivity extends AppCompatActivity implements LockPatternView.O
     LockPatternView lockPatternView;
     private List<LockPatternView.Cell> mChosenPattern = null;
     private static final long DELAYTIME = 600L;
-    ACache aCache;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,7 +32,7 @@ public class GSetActivity extends AppCompatActivity implements LockPatternView.O
         tvSetTip = findViewById(R.id.tv_set_tip);
         lockPatternView = findViewById(R.id.lockPatternView);
 
-        aCache = ACache.get(GSetActivity.this);
+//        aCache = ACache.get(GSetActivity.this);
         lockPatternView.setOnPatternListener(this);
     }
 
@@ -97,8 +96,8 @@ public class GSetActivity extends AppCompatActivity implements LockPatternView.O
      * 保存手势密码
      */
     private void saveChosenPattern(List<LockPatternView.Cell> cells) {
-        byte[] bytes = LockPatternUtil.patternToHash(cells);
-        aCache.put(Constants.GESTURE_PASSWORD, bytes);
+        String pwd = LockPatternUtil.paramLockPwd(cells);
+        PreferencesUtility.getInstance(this).put(Constants.GESTURE_PASSWORD, pwd);
     }
 
     /**

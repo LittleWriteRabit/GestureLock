@@ -1,15 +1,14 @@
 package com.mrdo.lock;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mrdo.lock.locklib.ACache;
 import com.mrdo.lock.locklib.LockPatternUtil;
 import com.mrdo.lock.locklib.LockPatternView;
+import com.mrdo.lock.locklib.PreferencesUtility;
 import com.mrdo.lock.locklib.StatusCheck;
 
 import java.util.List;
@@ -19,8 +18,7 @@ import java.util.List;
  */
 public class GCheckActivity extends AppCompatActivity implements LockPatternView.OnPatternListener {
 
-    ACache aCache;
-    private byte[] gesturePassword;
+    private String gesturePassword;
     private static final long DELAYTIME = 600L;
 
     TextView tvCheckTips;
@@ -29,17 +27,16 @@ public class GCheckActivity extends AppCompatActivity implements LockPatternView
     private int type = -1;
 
     private int count = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_check_gesture);
-        tvCheckTips=  findViewById(R.id.tv_check_tips);
-        lockPatternView= findViewById(R.id.lockPatternView);
+        tvCheckTips = findViewById(R.id.tv_check_tips);
+        lockPatternView = findViewById(R.id.lockPatternView);
 
-        aCache = ACache.get(GCheckActivity.this);
         //得到当前用户的手势密码
-        gesturePassword = aCache.getAsBinary(Constants.GESTURE_PASSWORD);
-//        gesturePassword=SPUtils.getInstance().getString(Constants.GESTURE_PASSWORD).getBytes();
+        gesturePassword = PreferencesUtility.getInstance(this).getString(Constants.GESTURE_PASSWORD);
         lockPatternView.setOnPatternListener(this);
         updateStatus(StatusCheck.DEFAULT);
     }
@@ -62,7 +59,7 @@ public class GCheckActivity extends AppCompatActivity implements LockPatternView
                 lockPatternView.postClearPatternRunnable(DELAYTIME);
                 if (count >= 5) {
                     //最多錯誤五次
-                    Toast.makeText(this,R.string.check_error_over_time,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.check_error_over_time, Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 break;
@@ -77,7 +74,7 @@ public class GCheckActivity extends AppCompatActivity implements LockPatternView
      * 手势登录成功（去首页）
      */
     private void loginGestureSuccess() {
-        Toast.makeText(this,R.string.gesture_login_success,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.gesture_login_success, Toast.LENGTH_SHORT).show();
         finish();
     }
 

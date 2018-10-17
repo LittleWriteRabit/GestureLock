@@ -1,6 +1,7 @@
 package com.mrdo.lock.locklib;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -30,8 +31,7 @@ public class LockPatternUtil {
         } else if (value.contains("@")) {
             float px = context.getResources().getDimension(Integer.valueOf(value.replace("@", "")));
             return (int) px;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("can not use wrap_content " +
                     "or match_parent or fill_parent or others' illegal parameter");
         }
@@ -48,6 +48,7 @@ public class LockPatternUtil {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
+
 
     /**
      * check the touch cell is or not in the circle
@@ -106,49 +107,40 @@ public class LockPatternUtil {
         return (float) Math.toDegrees(Math.acos((spY - fpY) / distance));
     }
 
+
+
     /**
-     * Generate an SHA-1 hash for the pattern. Not the most secure, but it is at
-     * least a second level of protection. First level is that the file is in a
-     * location only readable by the system process.
+     * 将密码拼接成为字符串返回
      *
-     * @param pattern
-     * @return the hash of the pattern in a byte array.
+     * @param params
+     * @return
      */
-    public static byte[] patternToHash(List<LockPatternView.Cell> pattern) {
-        if (pattern == null) {
-            return null;
+    public static String paramLockPwd(List<LockPatternView.Cell> params) {
+        if (params != null) {
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < params.size(); i++) {
+                sb.append(params.get(i).getIndex());
+            }
+            return sb.toString();
         } else {
-            int size = pattern.size();
-            byte[] res = new byte[size];
-            for (int i = 0; i < size; i++) {
-                LockPatternView.Cell cell = pattern.get(i);
-                res[i] = (byte) cell.getIndex();
-            }
-            MessageDigest md = null;
-            try {
-                md = MessageDigest.getInstance("SHA-1");
-                return md.digest(res);
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-                return res;
-            }
+            return null;
         }
     }
 
+
     /**
-     * Check to see if a pattern matches the saved pattern. If no pattern
-     * exists, always returns true.
+     * 验证两个密码是否相同
      *
      * @param pattern
-     * @param bytes
+     * @param localPwd
      * @return Whether the pattern matches the stored one.
      */
-    public static boolean checkPattern(List<LockPatternView.Cell> pattern, byte[] bytes) {
-        if (pattern == null || bytes == null) {
+    public static boolean checkPattern(List<LockPatternView.Cell> pattern, String localPwd) {
+        if (pattern == null || localPwd == null || TextUtils.isEmpty(localPwd)) {
             return false;
         } else {
-            byte[] bytes2 = patternToHash(pattern);
-            return Arrays.equals(bytes, bytes2);
+            String pwd2 = paramLockPwd(pattern);
+            return pwd2.equals(localPwd);
         }
     }
 }
