@@ -1,4 +1,6 @@
 # GestureLock
+[![](https://jitpack.io/v/LittleWriteRabit/GestureLock.svg)](https://jitpack.io/#LittleWriteRabit/GestureLock)
+
 To get a Git project into your build:
 
 Step 1. Add the JitPack repository to your build file
@@ -17,5 +19,5 @@ Add it in your root build.gradle at the end of repositories:
 	}
 Step 2. Add the dependency
 	dependencies {
-	        implementation 'com.github.LittleWriteRabit:GestureLock:LastVersion'
+	        implementation 'com.github.LittleWriteRabit:GestureLock:1.0.1'
 	}
